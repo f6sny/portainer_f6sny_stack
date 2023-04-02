@@ -1,0 +1,40 @@
+version: '3.4'
+services:
+  strapi:
+    container_name: "api.f6sny.com"
+    image: "ghcr.io/f6sny/api.f6sny.com:latest"
+    environment:
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DATABASE_NAME
+      - DATABASE_USERNAME
+      - DATABASE_PASSWORD
+      - DATABASE_SSL
+      - HOST
+      - PORT
+      - URL
+      - ADMIN_JWT_SECRET
+    ports:
+      - "8010:80"
+
+  nuxtjs:
+    container_name: "www.f6sny.com"
+    image: "ghcr.io/f6sny/www.f6sny.com:latest"
+    environment:
+      - API_URL
+      - NUXT_HOST
+      - NUXT_PORT
+      - API_AUTH_URL
+    ports:
+      - "9022:5050"
+
+  meilisearch:
+    container_name: "search.f6sny.com"
+    image: "getmeili/meilisearch:v0.26.1"
+    restart: unless-stopped
+    ports:
+      - "7700:7700"
+    volumes:
+      - /var/local/meilisearch:/data.ms
+    environment:
+      - MEILI_MASTER_KEY
