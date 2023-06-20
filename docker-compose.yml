@@ -5,6 +5,8 @@ services:
     image: "ghcr.io/f6sny/api.f6sny.com:latest"
     env_file:
       - stack.env
+    pull_policy: always
+    restart: unless-stopped
     ports:
       - "8010:80"
 
@@ -13,6 +15,8 @@ services:
     image: "ghcr.io/f6sny/www.f6sny.com:latest"
     env_file:
       - stack.env
+    pull_policy: always
+    restart: unless-stopped
     ports:
       - "9022:5050"
 
@@ -24,5 +28,6 @@ services:
       - "7700:7700"
     volumes:
       - /var/local/meilisearch:/data.ms
+    pull_policy: always
     env_file:
       - stack.env
